@@ -4,15 +4,15 @@ services:
     image: mysql:5.7  #https://hub.docker.com/_/mysql
     environment:
       MYSQL_DATABASE: app # esta base de datos será creada al inicio del contenedor
-      MYSQL_USER: user #se crea al usuario y se asocia a la base de datos anterior
-      MYSQL_PASSWORD: user
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: alumno #se crea al usuario y se asocia a la base de datos anterior
+      MYSQL_PASSWORD: alumno
+      MYSQL_ROOT_PASSWORD: alumno
     ports:
-      - "3306:3306"
+      - "3316:3306"
     restart: always
     volumes:
-      - ./dbdata:/var/lib/mysql:z
-      - ./sql:/docker-entrypoint-initdb.d:z
+      - volume1:/var/lib/mysql
+      
 
   adminer:
     #indica en la página de login, localhost: mysql
@@ -22,3 +22,5 @@ services:
       - 8080:8080
     depends_on:
       - mysql
+volumes:
+  volume1:
