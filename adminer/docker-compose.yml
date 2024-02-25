@@ -23,5 +23,5 @@ services:
     depends_on:
       - mysql
 
-  volumes:
-    volumen1:
+volumes:
+  volumen1:
