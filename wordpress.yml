@@ -1,0 +1,31 @@
+version: '3.6'
+
+services:
+
+  wordpress:
+    image: wordpress:5.4.3-fpm-alpine
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: database
+      WORDPRESS_DB_USER: alumno
+      WORDPRESS_DB_PASSWORD: alumno
+      WORDPRESS_DB_NAME: dbwordpress
+    volumes:
+      - wordpress:/var/www/html
+
+  database:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: dbwordpress
+      MYSQL_USER: alumno
+      MYSQL_PASSWORD: alumno
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - database:/var/lib/mysql
+
+volumes:
+  wordpress:
+  database:
