@@ -4,11 +4,9 @@ services:
     image: mysql:5.7  #https://hub.docker.com/_/mysql
     environment:
       MYSQL_DATABASE: app # esta base de datos será creada al inicio del contenedor
-      MYSQL_USER: user #se crea al usuario y se asocia a la base de datos anterior
-      MYSQL_PASSWORD: user
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - "3306:3306"
+      MYSQL_USER: alumno #se crea al usuario y se asocia a la base de datos anterior
+      MYSQL_PASSWORD: alumno
+      MYSQL_ROOT_PASSWORD: alumno
     restart: always
     volumes:
       - volumen1:/var/lib/mysql
