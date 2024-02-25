@@ -11,8 +11,8 @@ services:
       - "3306:3306"
     restart: always
     volumes:
-      - ./dbdata:/var/lib/mysql:z
-      - ./sql:/docker-entrypoint-initdb.d:z
+      - volumen1:/var/lib/mysql
+      - .:/docker-entrypoint-initdb.d:z
 
   adminer:
     #indica en la página de login, localhost: mysql
@@ -22,3 +22,6 @@ services:
       - 8080:8080
     depends_on:
       - mysql
+
+  volumes:
+    volumen1:
