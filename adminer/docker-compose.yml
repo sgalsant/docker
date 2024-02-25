@@ -10,7 +10,6 @@ services:
     restart: always
     volumes:
       - volumen1:/var/lib/mysql
-      - .:/docker-entrypoint-initdb.d:z
 
   adminer:
     #indica en la página de login, localhost: mysql
