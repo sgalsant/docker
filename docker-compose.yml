@@ -1,0 +1,50 @@
+version: '3'
+services:
+  php-fpm:
+    build:
+      context: .
+      dockerfile: dockerfile-php
+    image: php-fpm-dev
+    environment:
+      XDEBUG_CONFIG: remote_host=172.17.0.1 remote_port=10000 remote_enable=1
+      #windows/MAC remote_host=host.docker.internal 
+    volumes:
+      - ./src:/var/www/html:z
+    links:
+      - mysql
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/var/www/html:z
+      - ./site.conf:/etc/nginx/conf.d/default.conf:z
+    links:
+      - php-fpm
+ 
+  mysql:
+    image: mysql:5.7  #https://hub.docker.com/_/mysql
+    environment:
+      MYSQL_DATABASE: app # esta base de datos será creada al inicio del contenedor
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+    restart: always
+    volumes:
+      - dbdata:/var/lib/mysql:z
+      - ./sql:/docker-entrypoint-initdb.d:z
+
+  adminer:
+    #indica en la página de login, localhost: mysql
+    image: adminer
+    restart: always
+    ports:
+      - 9090:8080
+    depends_on:
+      - mysql
+
+volumes:
+  dbdata:

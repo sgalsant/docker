@@ -1,0 +1,10 @@
+FROM php:7.4-fpm-alpine
+
+#RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+RUN apk --update add --no-cache --virtual .build-deps $PHPIZE_DEPS \
+    && docker-php-ext-install pdo_mysql \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug \
+    && apk del -f .build-deps 
